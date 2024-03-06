@@ -6,5 +6,5 @@ export const API_CONFIG = {
 };
 
 export const EXPRESS_API_CONFIG = {
-   baseUrl: "http://localhost:4000",
+   baseUrl: "https://welcomecoffee-backend.onrender.com/",
 }
