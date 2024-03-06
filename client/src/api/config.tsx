@@ -6,5 +6,5 @@ export const API_CONFIG = {
 };
 
 export const EXPRESS_API_CONFIG = {
-   baseUrl: "https://welcomecoffee-backend.onrender.com/",
+   baseUrl: "https://welcomecoffee-backend.onrender.com",
 }
