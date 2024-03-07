@@ -3,6 +3,15 @@ import CoffeeLander from "../images/coffeeSVG2.svg";
 import "../custom.css";
 import { useCoffee } from "../providers/CoffeeProvider";
 // import { Footer } from "./Footer";
+import coffeeLatte from "../images/coffee1.jpeg";
+import MatchaLatte from "../images/matchaLatte2.jpg";
+import OatmilkLatte from "../images/oatmilk latte.jpg";
+
+const coffeeSamples = [
+  { name: "Hot Chocolate Latte", image: coffeeLatte },
+  { name: "Matcha Latte", image: MatchaLatte },
+  { name: "Oatmilk Latte", image: OatmilkLatte },
+];
 
 export const LandingPage = () => {
   const { coffee } = useCoffee();
@@ -43,46 +52,67 @@ export const LandingPage = () => {
             </div>
           </div>
         </div>
-        </div>
+      </div>
 
-        <div className="flex flex-col lg:flex-col gap-10 justify-center font-serif">
-          <h2 className="lg:text-6xl 
+      <div className="flex flex-col lg:flex-col gap-10 justify-center font-serif">
+        <h2
+          className="lg:text-6xl 
           md:text-3xl sm:text-4xl
-          font-bold text-center mt-[100px] underline underline-offset-4">Our Coffees</h2>
-          <div className="flex lg:flex-row md:flex-col min-[320px]:flex-col justify-center">
-            <>
-              {coffee && Array.isArray(coffee)
-                ? coffee
-                    .slice(0, 3)
-                    .map(
-                      (item: {
-                        image: string;
-                        title: string;
-                        description: string;
-                      }, index) => (
-                        <div key={index}>
-                          <div className="flex mt-5 p-3"></div>
-                          <div className="p-4">
-                            <img
-                              src={item.image}
-                              alt=""
-                              className="w-full h-40 md:h-48 lg:h-56"
-                            />
-                          </div>
-                          <div className="text-center gap-3 min-[320px]:p-4">
-                            <h3 className="text-lg font-semibold">
-                              {item.title || "Default Title"}
-                            </h3>
-                          </div>
-                        </div>
-                      )
-                    )
-                : null}
-            </>
-          </div>
+          font-bold text-center mt-[100px] underline underline-offset-4"
+        >
+          Our Coffees
+        </h2>
+        <div className="flex lg:flex-row md:flex-col min-[320px]:flex-col justify-center">
+          <>
+            {coffee && Array.isArray(coffee) ? (
+              coffee.slice(0, 3).map(
+                (
+                  item: {
+                    image: string;
+                    title: string;
+                    description: string;
+                  },
+                  index
+                ) => (
+                  <div key={index}>
+                    <div className="flex mt-5 p-3"></div>
+                    <div className="p-4">
+                      <img
+                        src={item.image}
+                        alt=""
+                        className="w-full h-40 md:h-48 lg:h-56"
+                      />
+                    </div>
+                    <div className="text-center gap-3 min-[320px]:p-4">
+                      <h3 className="text-lg font-semibold">
+                        {item.title || "Default Title"}
+                      </h3>
+                    </div>
+                  </div>
+                )
+              )
+            ) : (
+              <>
+                {coffeeSamples.map((item, key) => (
+                  <div key={key}>
+                    <div className="flex mt-5 p-3"></div>
+                    <div className="p-4">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-40 md:h-48 lg:h-56"
+                      />
+                    </div>
+                    <div className="text-center gap-3 min-[320px]:p-4">
+                      <h3 className="text-lg font-semibold">{item.name}</h3>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+          </>
         </div>
-
+      </div>
     </div>
-
   );
 };
