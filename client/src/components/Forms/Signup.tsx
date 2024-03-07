@@ -19,6 +19,7 @@ export const Signup = () => {
   const [confirmPass, setConfirmPass] = useState("");
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const usernameValid = usernameInput.length > 2;
   const passwordValid = isPasswordValid(password);
@@ -30,6 +31,8 @@ export const Signup = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+
     if (!usernameValid || !passwordValid || !confirmPasswordValid) {
       setError(true);
       return;
@@ -38,12 +41,11 @@ export const Signup = () => {
       await registerUser({
         username: usernameInput,
         password: password,
-      });
+      }).finally(()=> setLoading(false));
       toast.success("You have been registered :)")
       setError(false);
       navigate("/coffee");
-
-    } catch (err) {
+    } catch(err) {
       toast.error("Signup Error");
       console.log(err);
     }
@@ -108,10 +110,12 @@ export const Signup = () => {
               message={confirmPasswordErrorMessage}
             />
             <div className="flex flex-row gap-10 text-center cursor-pointer">
+            {loading ? <h3 className="text-2xl">Is Loading...</h3> : 
               <input
                 type="submit"
                 className="items-center h-14 w-full max-w-md border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:border-blue-500 bg-green-500 hover:bg-green-600"
               />
+            }
             </div>
           </div>
         </div>
