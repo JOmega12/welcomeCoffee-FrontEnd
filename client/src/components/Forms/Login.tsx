@@ -15,6 +15,7 @@ export const Login = () => {
   const [passwordInput, setPassword] = useState("");
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const usernameValid = usernameInput === user?.username;
   const passwordValid = passwordInput === user?.password;
@@ -26,7 +27,7 @@ export const Login = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setLoading(true);
     loginUser({
       password: passwordInput,
       username: usernameInput,
@@ -45,7 +46,8 @@ export const Login = () => {
       })
       .catch((err) => {
         toast.error(err.message);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
@@ -103,11 +105,14 @@ export const Login = () => {
                 {loginErrorMessage}
               </div>
             ) : null}
-            <div className="flex flex-row gap-10 text-center cursor-pointer">
+            <div className="flex flex-row gap-10 text-center justify-center cursor-pointer">
+              {loading? <h3 className="text-2xl">Is Loading...</h3> : 
               <input
                 type="submit"
                 className="items-center h-14 w-full max-w-md border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:border-blue-500 bg-green-500 hover:bg-green-600"
+                disabled={loading}
               />
+              }
             </div>
 
           </div>
